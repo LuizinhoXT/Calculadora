@@ -3,16 +3,24 @@ import java.awt.Component;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Insets;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
-public class Janela extends JFrame {
+
+public class Janela extends JFrame{
     // criando duas variiáveis do tipo painel para comportar os elementos visuais da calculadora, atuando como containers.
-    JPanel tecladoNumerico = new JPanel();
-    JPanel visor = new JPanel();
+    private JPanel tecladoNumerico = new JPanel();
+    private JPanel visor = new JPanel();
+    private JTextField display = new JTextField();
+    
 
     // objetivo do tipo GridBagLayout que pode ser organizado dinamicamente de acordo com constraints
     GridBagLayout layout = new GridBagLayout();
@@ -20,13 +28,15 @@ public class Janela extends JFrame {
     // contraints que vão definir as regras de posicionamento dos containers
     GridBagConstraints gbcVisor = new GridBagConstraints();
     GridBagConstraints gbcTecladoNumerico = new GridBagConstraints();
+    GridBagConstraints gbcTextField = new GridBagConstraints();
+
     
     // constraint que define a regra de posicionamento dos botoes dentor do container "tecladoNumerico"
     GridBagConstraints gbcBotoes = new GridBagConstraints();
     
     // variáveis para controlar o posicionamentos dos botões
-    int ctrlCol = 0;
-    int ctrlRow = 0; 
+    private int ctrlCol = 0;
+    private int ctrlRow = 0; 
 
     // variável do tipo Dimension que limita o quando a janela pode ser diminuida.
     Dimension redimensionamentoMinimo = new Dimension(340, 480);
@@ -49,7 +59,7 @@ public class Janela extends JFrame {
     JButton bt_igual = new JButton("=");
 
     JButton bt_7 = new JButton("7");
-    JButton bt_8 = new JButton("9");
+    JButton bt_8 = new JButton("8");
     JButton bt_9 = new JButton("9");
 
     JButton bt_4 = new JButton("4");
@@ -109,6 +119,7 @@ public class Janela extends JFrame {
 
         // adicionando os botões de acordo de acordo com as constraints de posicionamento, definidas dentro do método adicionarBotão. Vá até o metodo se quiser saber mais sobre o código.
         tecladoNumerico.add(adicionarBotao(bt_pot), gbcBotoes);
+        bt_pot.addActionListener(this::teste);
         tecladoNumerico.add(adicionarBotao(bt_rad), gbcBotoes);
         tecladoNumerico.add(adicionarBotao(bt_C), gbcBotoes);
         tecladoNumerico.add(adicionarBotao(bt_bcs), gbcBotoes);
@@ -118,11 +129,51 @@ public class Janela extends JFrame {
         tecladoNumerico.add(adicionarBotao(bt_fechaPar), gbcBotoes);
         tecladoNumerico.add(adicionarBotao(bt_quociente), gbcBotoes);
 
+        tecladoNumerico.add(adicionarBotao(bt_7), gbcBotoes);
+        tecladoNumerico.add(adicionarBotao(bt_8), gbcBotoes);
+        tecladoNumerico.add(adicionarBotao(bt_9), gbcBotoes);
+
+        tecladoNumerico.add(adicionarBotao(bt_multi), gbcBotoes);
+
+        tecladoNumerico.add(adicionarBotao(bt_4),gbcBotoes);
+        tecladoNumerico.add(adicionarBotao(bt_5), gbcBotoes);
+        tecladoNumerico.add(adicionarBotao(bt_6), gbcBotoes);
+        tecladoNumerico.add(adicionarBotao(bt_menos), gbcBotoes);
+
+        tecladoNumerico.add(adicionarBotao(bt_1), gbcBotoes);
+        tecladoNumerico.add(adicionarBotao(bt_2), gbcBotoes);
+        tecladoNumerico.add(adicionarBotao(bt_3), gbcBotoes);
+        tecladoNumerico.add(adicionarBotao(bt_mais), gbcBotoes);
+        
+        tecladoNumerico.add(adicionarBotao(bt_negati), gbcBotoes);
+        tecladoNumerico.add(adicionarBotao(bt_0), gbcBotoes);
+        tecladoNumerico.add(adicionarBotao(bt_virg), gbcBotoes);
+        tecladoNumerico.add(adicionarBotao(bt_igual), gbcBotoes);
+        
+        // adicionando textField no visor, que funcionará como o display
+
+        visor.setLayout(layout);
+        gbcTextField.fill = GridBagConstraints.BOTH;
+        gbcTextField.gridx = 0;
+        gbcTextField.gridy = 0;
+        gbcTextField.weightx = 1.0;
+        gbcTextField.weighty = 1.0;
+
+        display.setBackground(new Color(10,10,10));
+        display.setForeground(new Color(255,255,255));
+        display.setFont(new Font("Arial",Font.BOLD, 40));
+        display.setHorizontalAlignment(SwingConstants.RIGHT);
+
+        visor.add(display, gbcTextField);
+        
+        
+
+
         // definindo a visibilidade da janela como verdadeira se não ela não aparece
         setVisible(true);
     }
 
-    public Component adicionarBotao(JButton componente) {
+    private Component adicionarBotao(JButton componente) {
         // constraints para controlar o posizionamento dos botões, gerando um layout em grade, nesse caso, uma grade 4x6.
 
         gbcBotoes.gridx = ctrlCol; // essa é variável de controle da geração de colunas variando de 1 a 4 ou seja, sempre terá 4 colunas.
@@ -151,5 +202,12 @@ public class Janela extends JFrame {
         // retorno do objeto.
         return componente;
     }
+    
+    private void digitar(String texto){
+        display.setText(texto);
+    }
 
+    public void teste(ActionEvent e){
+        System.out.println("fui clickado");
+    } 
 }
