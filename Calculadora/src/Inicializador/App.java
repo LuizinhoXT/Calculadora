@@ -1,4 +1,5 @@
-
+package Inicializador;
+import Visao.Janela;
 
 public class App {
     public static void main(String[] args){

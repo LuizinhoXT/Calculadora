@@ -1,0 +1,6 @@
+package logica;
+
+class memoria{
+
+    
+}
