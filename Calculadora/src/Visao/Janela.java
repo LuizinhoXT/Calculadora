@@ -15,8 +15,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-public class Janela extends JFrame{
+import logica.Controle;
 
+public class Janela extends JFrame{
+    Controle controle = new Controle();
     // criando duas variiáveis do tipo painel para comportar os elementos visuais da calculadora, atuando como containers.
     private JPanel tecladoNumerico = new JPanel();
     private JPanel visor = new JPanel();
@@ -277,51 +279,63 @@ public class Janela extends JFrame{
     } 
     private void acaoBotao7(ActionEvent e){
         digitar("7");
+        controle.setMemoria(Integer.parseInt("7"));
     } 
     private void acaoBotao8(ActionEvent e){
         digitar("8");
+        controle.setMemoria(Integer.parseInt("8"));
     } 
     private void acaoBotao9(ActionEvent e){
         digitar("9");
+        controle.setMemoria(Integer.parseInt("9"));
     } 
     private void acaoBotaoMulti(ActionEvent e){
         digitar("x");
     } 
     private void acaoBotao4(ActionEvent e){
         digitar("4");
+        controle.setMemoria(Integer.parseInt("4"));
     } 
     private void acaoBotao5(ActionEvent e){
         digitar("5");
+        controle.setMemoria(Integer.parseInt("5"));
     } 
     private void acaoBotao6(ActionEvent e){
         digitar("6");
+        controle.setMemoria(Integer.parseInt("6"));
     } 
     private void acaoBotaoMenos(ActionEvent e){
         digitar("-");
     } 
     private void acaoBotao1(ActionEvent e){
         digitar("1");
+        controle.setMemoria(Integer.parseInt("1"));
     } 
     private void acaoBotao2(ActionEvent e){
         digitar("2");
+        controle.setMemoria(Integer.parseInt("2"));
     } 
     private void acaoBotao3(ActionEvent e){
         digitar("3");
+        controle.setMemoria(Integer.parseInt("3"));
     } 
     private void acaoBotaoNegati(ActionEvent e){
         digitar("+/-");
     } 
     private void acaoBotao0(ActionEvent e){
         digitar("0");
+        controle.setMemoria(Integer.parseInt("0"));
     } 
     private void acaoBotaoVirg(ActionEvent e){
         digitar(",");
     } 
     private void acaoBotaoIgual(ActionEvent e){
-        
+        display.setText(String.valueOf(controle.executarOperaçao()));
     }
     private void acaoBotaoMais(ActionEvent actionevent1) {
         digitar("+");
+        controle.definirOperacao("+");
+        
     }
 
 }
