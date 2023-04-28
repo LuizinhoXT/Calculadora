@@ -168,7 +168,7 @@ public class Janela extends JFrame{
         bt_mais.addActionListener(this::acaoBotaoMais);
         
         tecladoNumerico.add(adicionarBotao(bt_negati), gbcBotoes);
-        bt_multi.addActionListener(this::acaoBotaoNegati);
+        bt_negati.addActionListener(this::acaoBotaoNegati);
         tecladoNumerico.add(adicionarBotao(bt_0), gbcBotoes);
         bt_0.addActionListener(this::acaoBotao0);
         tecladoNumerico.add(adicionarBotao(bt_virg), gbcBotoes);
@@ -230,14 +230,14 @@ public class Janela extends JFrame{
     private void digitar(String texto){
 
         if(display.getText().equals("0")) {
-            if(texto.equals(",") && display.getText().equals("0")){
+            if(texto.equals(".") && display.getText().equals("0")){
                 display.setText(display.getText().concat(texto));
             }else{
                 display.setText(texto);
             }
             
         }else{
-            if(texto.equals(",") && display.getText().contains(",")){
+            if(texto.equals(".") && display.getText().contains(".")){
                 
             }else{
                 display.setText(display.getText().concat(texto));
@@ -245,24 +245,40 @@ public class Janela extends JFrame{
         }    
     }
 
+    private void limpa(){
+        display.setText("0");
+        controle.limparMemorias();
+    }  
     
+    private boolean verificaSeUltimoCaracterEhUmOperador(String valor){
+        if(valor.contains("+")||valor.contains("-")||valor.contains("/")||valor.contains("x")){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+    private void apagarUltimoCaractere(){
+        display.setText(display.getText().substring(0, display.getText().length() - 1));        
+    }
     private void acaoBotaoPot(ActionEvent e){
         digitar("^");
 
-    } 
+    }
+
+
+
     private void acaoBotaoRad(ActionEvent e){
         digitar("√");
     } 
     private void acaoBotaoC(ActionEvent e){
-        display.setText("0");
+        limpa();
     } 
-    private void acaoBotaoBcs(ActionEvent e){
-        String memoria = display.getText();
-        
-        if(memoria.length() == 1){
-            display.setText("0");
+    private void acaoBotaoBcs(ActionEvent e){        
+        if(display.getText().length() == 1){
+            limpa();       
         }else{
-            display.setText(memoria.substring(0, memoria.length() - 1));
+            apagarUltimoCaractere();
         }
     } 
     private void acaoBotaoResto(ActionEvent e){
@@ -276,6 +292,7 @@ public class Janela extends JFrame{
     } 
     private void acaoBotaoQuociente(ActionEvent e){
         digitar("/");
+        controle.definirOperacao("/");
     } 
     private void acaoBotao7(ActionEvent e){
         digitar("7");
@@ -290,7 +307,9 @@ public class Janela extends JFrame{
         controle.receberValor("9");
     } 
     private void acaoBotaoMulti(ActionEvent e){
+
         digitar("x");
+        controle.definirOperacao("x");
     } 
     private void acaoBotao4(ActionEvent e){
         digitar("4");
@@ -306,6 +325,7 @@ public class Janela extends JFrame{
     } 
     private void acaoBotaoMenos(ActionEvent e){
         digitar("-");
+        controle.definirOperacao("-");
     } 
     private void acaoBotao1(ActionEvent e){
         digitar("1");
@@ -327,7 +347,7 @@ public class Janela extends JFrame{
         controle.receberValor("0");
     } 
     private void acaoBotaoVirg(ActionEvent e){
-        digitar(",");
+        digitar(".");
     } 
     private void acaoBotaoIgual(ActionEvent e){
         display.setText(String.valueOf(controle.executarOperaçao()));
@@ -335,7 +355,6 @@ public class Janela extends JFrame{
     private void acaoBotaoMais(ActionEvent actionevent1) {
         digitar("+");
         controle.definirOperacao("+");
-        
     }
 
 }
